@@ -7,37 +7,29 @@ nedám ošetření vstupu od uživatele a budu předpokládat,
 
 from datetime import datetime
 
-# proiteruje soubor a vrací jméno k zadanému datu
-def get_date(name):
-    name_day = open("svatky.csv", "r")
-    for row in name_day:
-        if row.__contains__(name):
-            return row.split(";")[0]
-            break
-        else:
-            pass
-    name_day.close()
-
-# proiteruje soubor a vrací datum k zadanému jménu
-def get_name(date):
-    name_day = open("svatky.csv", "r")
-    for row in name_day:
-        if row.__contains__(date):
-            return row.split(";")[1]
-            break
-        else:
-            pass
-    name_day.close()
-
-name_day = open("svatky.csv", "r")
-today = datetime.now()
+# proiteruje soubor svatky.csv a vrátí požadované jméno nebo datum
+def get_data(choice):
+    option = {1: 0, 2: 1}
+    data = {1: "jméno", 2: "datum"}
+    with open("svatky.csv", "r") as name_day:
+        if choice:
+            insert = input("Zadej {0}: ".format(data[choice]))
+            for row in name_day:
+                if row.__contains__(insert):
+                    return row.split(";")[option[choice]]
+                    break
+                else:
+                    pass
+            else:
+                pass
 
 # vrací dnešní datum a svátek k dnešnímu datu
-for row in name_day:
-    if row.__contains__("{0}.{1}.".format(today.day, today.month)):
-        name_today = row.split(";")[1]
-        break
-name_day.close()
+with open("svatky.csv", "r") as name_day:
+    today = datetime.now()
+    for row in name_day:
+        if row.__contains__("{0}.{1}.".format(today.day, today.month)):
+            name_today = row.split(";")[1]
+            break
 
 print("Vítej v kalendáři jmen. Dnes je {0}.{1}. "
       "a svátek má {2}.\nVyber jednu z možností (pomocí čísla), co chceš zjistit:\n"
@@ -45,12 +37,8 @@ print("Vítej v kalendáři jmen. Dnes je {0}.{1}. "
 
 choice = int(input("Možnost: "))
 
-if choice == 1:
-    name = input("Zadej jméno: ")
-    print("{0} má svátek {1}".format(name, get_date(name)))
-elif choice == 2:
-    date = input("Zadej datum ve formátu d.m. (např. 6.8.): ")
-    print("{0} má svátek {1}".format(date, get_name(date)))
+print("\nTady máš informaci, kterou jsi chtěl: {0}".format(get_data(choice)))
+
 
 
 
