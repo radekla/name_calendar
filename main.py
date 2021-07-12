@@ -12,16 +12,15 @@ def get_data(choice):
     option = {1: 0, 2: 1}
     data = {1: "jméno", 2: "datum"}
     with open("svatky.csv", "r") as name_day:
-        if choice:
-            insert = input("Zadej {0}: ".format(data[choice]))
-            for row in name_day:
-                if row.__contains__(insert):
-                    return row.split(";")[option[choice]]
-                    break
-                else:
-                    pass
-            else:
-                pass
+        insert = input("Zadej {0}: ".format(data[choice]))
+
+        # přidá záznam do logu
+        with open("logs.txt", "a") as record:
+            record.write(insert + "\n")
+
+        for row in name_day:
+            if row.__contains__(insert):
+                return row.split(";")[option[choice]]
 
 # vrací dnešní datum a svátek k dnešnímu datu
 with open("svatky.csv", "r") as name_day:
@@ -38,8 +37,6 @@ print("Vítej v kalendáři jmen. Dnes je {0}.{1}. "
 choice = int(input("Možnost: "))
 
 print("\nTady máš informaci, kterou jsi chtěl: {0}".format(get_data(choice)))
-
-
 
 
 
