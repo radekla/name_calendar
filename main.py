@@ -29,7 +29,7 @@ with open("svatky.csv", "r") as name_day:
         if row.__contains__("{0}.{1}.".format(today.day, today.month)):
             name_today = row.split(";")[1]
             break
-# ff
+
 print("Vítej v kalendáři jmen. Dnes je {0}.{1}. "
       "a svátek má {2}.\nVyber jednu z možností (pomocí čísla), co chceš zjistit:\n"
       "1 - Chci zjistit datum\n2 - Chci zjistit jméno".format(today.day, today.month, name_today))
